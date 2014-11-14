@@ -1,0 +1,6 @@
+-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -IC:\Keil\ARM\Device\Nordic\nrf51422\Include -IC:\Keil\ARM\Device\Nordic\nrf51422\Source -I..\..\..\Code+ -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\ext_sensors -I..\..\Capinterface_tx_v2 -IC:\Keil\ARM\ARMCC\include -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\ant\softdevice -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\ant -I..\..\Capinterface_tx_v3_PCB_sing -IC:\Keil\ARM\Device\Nordic\nrf51422\Source\spi_master -IC:\Keil\ARM\Device\Nordic\nrf51422\Include -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\s210 -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common -IC:\Keil\ARM\Device\Nordic\nrf51422\Source\nrf_delay -IC:\Keil\ARM\Device\Nordic\nrf51422\Source\spi_master -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\sdk_soc --c99
+-I C:\Keil\ARM\RV31\INC
+-I C:\Keil\ARM\CMSIS\Include
+-I C:\Keil\ARM\Device\Nordic\nRF51422\Include
+-DNRF51 -DSETUPA -DBOARD_NRF6310 -DSPI_MASTER_1_ENABLE
+-o .\twi_sw_master.o --omf_browse .\twi_sw_master.crf --depend .\twi_sw_master.d --feedback ".\Capinter.fed" "C:\Keil\ARM\Device\Nordic\nrf51422\Source\twi_master\twi_sw_master.c"

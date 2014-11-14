@@ -1,0 +1,42 @@
+;#<FEEDBACK># ARM Linker, 5.03 [Build 76]: Last Updated: Tue Nov 11 11:33:37 2014
+;VERSION 0.2
+;FILE arm_startup_nrf51.o
+;FILE nrf6350.o
+__asm___9_nRF6350_c_83f50147____REV16 <= USED 0
+__asm___9_nRF6350_c_83f50147____REVSH <= USED 0
+__asm___9_nRF6350_c_83f50147__nrf_delay_us <= USED 0
+nrf6350_js_get_status <= USED 0
+nrf6350_js_get_value <= USED 0
+nrf6350_lcd_clear <= USED 0
+nrf6350_lcd_init <= USED 0
+nrf6350_lcd_off <= USED 0
+nrf6350_lcd_on <= USED 0
+nrf6350_lcd_set_contrast <= USED 0
+nrf6350_lcd_wake_up <= USED 0
+nrf6350_lcd_write_string <= USED 0
+;FILE nrf_delay.o
+__asm___11_nrf_delay_c_532987f3____REV16 <= USED 0
+__asm___11_nrf_delay_c_532987f3____REVSH <= USED 0
+;FILE pcapint_main.o
+PROTOCOL_EVENT_IRQHandler <= USED 0
+__asm___14_PCAPint_main_c_94ae794d____REV16 <= USED 0
+__asm___14_PCAPint_main_c_94ae794d____REVSH <= USED 0
+__asm___14_PCAPint_main_c_94ae794d__nrf_delay_us <= USED 0
+data_extract <= USED 0
+pcap_dsp_write <= USED 0
+;FILE spi_master.o
+__asm___12_spi_master_c_ef51c06a____REV16 <= USED 0
+__asm___12_spi_master_c_ef51c06a____REVSH <= USED 0
+spi_master_close <= USED 0
+spi_master_evt_handler_reg <= USED 0
+spi_master_get_state <= USED 0
+;FILE system_nrf51.o
+SystemCoreClockUpdate <= USED 0
+__asm___14_system_nrf51_c_5d646a67____REV16 <= USED 0
+__asm___14_system_nrf51_c_5d646a67____REVSH <= USED 0
+;FILE twi_sw_master.o
+__asm___15_twi_sw_master_c_959ec897____REV16 <= USED 0
+__asm___15_twi_sw_master_c_959ec897____REVSH <= USED 0
+__asm___15_twi_sw_master_c_959ec897__nrf_delay_us <= USED 0
+twi_master_init <= USED 0
+twi_master_transfer <= USED 0

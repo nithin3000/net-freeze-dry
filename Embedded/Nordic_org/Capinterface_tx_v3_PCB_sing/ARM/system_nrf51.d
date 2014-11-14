@@ -1,0 +1,13 @@
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Source\templates\system_nrf51.c
+.\system_nrf51.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\system_nrf51.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51.h
+.\system_nrf51.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+.\system_nrf51.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+.\system_nrf51.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\system_nrf51.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_bitfields.h
+.\system_nrf51.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_deprecated.h
+.\system_nrf51.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\compiler_abstraction.h

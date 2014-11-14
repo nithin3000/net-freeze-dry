@@ -1,0 +1,16 @@
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Source\ext_sensors\nRF6350\nRF6350.c
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\ext_sensors\nrf6350.h
+.\nrf6350.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\nrf6350.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf_delay.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51.h
+.\nrf6350.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+.\nrf6350.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+.\nrf6350.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\system_nrf51.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_bitfields.h
+.\nrf6350.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_deprecated.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\compiler_abstraction.h
+.\nrf6350.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\twi_master.h

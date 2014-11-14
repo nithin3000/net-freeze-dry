@@ -1,0 +1,17 @@
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Source\twi_master\twi_hw_master.c
+twi_hw_master.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+twi_hw_master.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\compiler_abstraction.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51.h
+twi_hw_master.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+twi_hw_master.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+twi_hw_master.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\system_nrf51.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_bitfields.h
+twi_hw_master.o: C:\Keil\ARM\CMSIS\Include\core_cm0.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf51_deprecated.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\twi_master.h
+twi_hw_master.o: ..\..\Capinterface\twi_master_config.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf_delay.h
+twi_hw_master.o: C:\Keil\ARM\Device\Nordic\nrf51422\Include\nrf_gpio.h

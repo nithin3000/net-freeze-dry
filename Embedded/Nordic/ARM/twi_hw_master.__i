@@ -1,0 +1,5 @@
+-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork -IC:\Keil\ARM\Device\Nordic\nrf51422\Include -IC:\Keil\ARM\Device\Nordic\nrf51422\Source -I..\..\..\Code+ -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\ext_sensors -I..\..\Capinterface --c99 
+-I C:\Keil\ARM\RV31\INC 
+-I C:\Keil\ARM\CMSIS\Include 
+-I C:\Keil\ARM\Device\Nordic\nRF51\Include 
+-DNRF51 -DSETUPA -DBOARD_NRF6310 -o "twi_hw_master.o" --omf_browse "twi_hw_master.crf" --depend "twi_hw_master.d" "C:\Keil\ARM\Device\Nordic\nrf51422\Source\twi_master\twi_hw_master.c"
