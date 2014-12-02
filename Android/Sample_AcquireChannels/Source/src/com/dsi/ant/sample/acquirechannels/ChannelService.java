@@ -243,7 +243,7 @@ public class ChannelService extends Service
             if(null != antChannel)
             {
 
-                channelDeviceIdCounter += 1;
+                channelDeviceIdCounter = 3;
 
                 // Constructing a controller that will manage and control the channel
                 channelController = new ChannelController(antChannel, isMaster, channelDeviceIdCounter, 

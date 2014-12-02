@@ -35,7 +35,7 @@ import java.util.Random;
 public class ChannelController
 {
     // The device type and transmission type to be part of the channel ID message
-    private static final int CHANNEL_PROOF_DEVICE_TYPE = 0x02;
+    private static final int CHANNEL_PROOF_DEVICE_TYPE = 0x03;
     private static final int CHANNEL_PROOF_TRANSMISSION_TYPE = 0x01;
     
     // The period and frequency values the channel will be configured to

@@ -35,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 
 public class ChannelList extends Activity {
     private static final String TAG = ChannelList.class.getSimpleName();
-    
+    private static int c0 = 1;
     private final String PREF_TX_BUTTON_CHECKED_KEY = "ChannelList.TX_BUTTON_CHECKED";
     private boolean mCreateChannelAsMaster;
     
@@ -55,12 +56,13 @@ public class ChannelList extends Activity {
     
     private boolean mChannelServiceBound = false;
     //private int i = 0;
+
     private void initButtons()
     {
         Log.v(TAG, "initButtons...");
         
         //Register Master/Slave Toggle handler
-        ToggleButton toggleButton_MasterSlave = (ToggleButton)findViewById(R.id.toggleButton_MasterSlave);
+        /*ToggleButton toggleButton_MasterSlave = (ToggleButton)findViewById(R.id.toggleButton_MasterSlave);
         toggleButton_MasterSlave.setEnabled(mChannelServiceBound);
         toggleButton_MasterSlave.setChecked(mCreateChannelAsMaster);
         toggleButton_MasterSlave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -70,8 +72,8 @@ public class ChannelList extends Activity {
             {
                 mCreateChannelAsMaster = enabled;
             }
-        });
-        
+        });*/
+         final EditText text = (EditText)findViewById(R.id.editText1);
         //Register Add Channel Button handler
         Button button_addChannel = (Button)findViewById(R.id.button_AddChannel);
         button_addChannel.setEnabled(mChannelServiceBound);
@@ -96,6 +98,19 @@ public class ChannelList extends Activity {
                 clearAllChannels();
             }
         });
+        
+        Button button_getc0 = (Button)findViewById(R.id.button_getc0);
+        button_getc0.setEnabled(mChannelServiceBound);
+        button_getc0.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+            	 //addNewChannel(mCreateChannelAsMaster);
+            	c0 = Integer.parseInt(text.getText().toString());
+            }
+        });
+        
         
         Log.v(TAG, "...initButtons");
     }
@@ -159,7 +174,7 @@ public class ChannelList extends Activity {
         
         ((Button)findViewById(R.id.button_ClearChannels)).setEnabled(false);
         ((Button)findViewById(R.id.button_AddChannel)).setEnabled(false);
-        ((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(false);
+       // ((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(false);
         
         Log.v(TAG, "...doUnbindChannelService");
     }
@@ -232,7 +247,7 @@ public class ChannelList extends Activity {
                    // {	
                     	if(newInfo.broadcastData[0]== 8){
                     		
-                    	mChannelDisplayList.set(1,getDisplayText(newInfo));
+                    	mChannelDisplayList.set(0,getDisplayText(newInfo));
                         runOnUiThread(new Runnable()
                         {
                             @Override
@@ -244,7 +259,7 @@ public class ChannelList extends Activity {
                     }
                     	if(newInfo.broadcastData[0]== 1){
                     		
-                    	mChannelDisplayList.set(2,getDisplayText(newInfo));
+                    	mChannelDisplayList.set(1,getDisplayText(newInfo));
                         runOnUiThread(new Runnable()
                         {
                             @Override
@@ -256,6 +271,18 @@ public class ChannelList extends Activity {
                     }
                     	if(newInfo.broadcastData[0]== 2){
                     		
+                    	mChannelDisplayList.set(2,getDisplayText(newInfo));
+                        runOnUiThread(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                mChannelListAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                    	if(newInfo.broadcastData[0]== 3){
+                    		
                     	mChannelDisplayList.set(3,getDisplayText(newInfo));
                         runOnUiThread(new Runnable()
                         {
@@ -266,18 +293,7 @@ public class ChannelList extends Activity {
                             }
                         });
                     }
-                    	if(newInfo.broadcastData[0]== 0){
-                    		
-                    	mChannelDisplayList.set(0,getDisplayText(newInfo));
-                        runOnUiThread(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                mChannelListAdapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
+
                     //}
                 }
 
@@ -287,14 +303,14 @@ public class ChannelList extends Activity {
                     // Enable Add Channel button and Master/Slave toggle if
                     // adding channels is allowed
                     ((Button)findViewById(R.id.button_AddChannel)).setEnabled(addChannelAllowed);
-                    ((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(addChannelAllowed);
+                    //((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(addChannelAllowed);
                 }
             });
 
             // Initial check when connecting to ChannelService if adding channels is allowed
             boolean allowAcquireChannel = mChannelService.isAddChannelAllowed();
             ((Button)findViewById(R.id.button_AddChannel)).setEnabled(allowAcquireChannel);
-            ((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(allowAcquireChannel);
+            //((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(allowAcquireChannel);
             
             refreshList();
             
@@ -311,7 +327,7 @@ public class ChannelList extends Activity {
             
             ((Button)findViewById(R.id.button_ClearChannels)).setEnabled(false);
             ((Button)findViewById(R.id.button_AddChannel)).setEnabled(false);
-            ((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(false);
+            //((Button)findViewById(R.id.toggleButton_MasterSlave)).setEnabled(false);
             
             Log.v(TAG, "...mChannelServiceConnection.onServiceDisconnected");
         }
@@ -394,14 +410,47 @@ public class ChannelList extends Activity {
         }
         else
         {
-            if(channelInfo.isMaster)
+            /*if(channelInfo.isMaster)
             {
                 displayText = String.format("#%-6d Tx:[%2d]", channelInfo.deviceNumber, channelInfo.broadcastData[0] & 0xFF);
             }
             else
             {
                 displayText = String.format("#%-6d Rx:[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d]", channelInfo.deviceNumber, channelInfo.broadcastData[0] & 0xFF,channelInfo.broadcastData[1] & 0xFF,channelInfo.broadcastData[2] & 0xFF,channelInfo.broadcastData[3] & 0xFF,channelInfo.broadcastData[4] & 0xFF,channelInfo.broadcastData[5] & 0xFF,channelInfo.broadcastData[6] & 0xFF,channelInfo.broadcastData[7] & 0xFF);
-            }
+            }*/
+        	if((channelInfo.broadcastData[0] & 0xFF) == 1)
+        	{		
+        		//displayText = String.format("C[1]:[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d]", channelInfo.broadcastData[0] & 0xFF,channelInfo.broadcastData[1] & 0xFF,channelInfo.broadcastData[2] & 0xFF,channelInfo.broadcastData[3] & 0xFF,channelInfo.broadcastData[4] & 0xFF,channelInfo.broadcastData[5] & 0xFF,channelInfo.broadcastData[6] & 0xFF,channelInfo.broadcastData[7] & 0xFF);
+        		byte[] capbyte =  channelInfo.broadcastData;
+        		capbyte[0] = 0;
+        		float x = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
+        		displayText = String.format("C[1]:[%3.5f]",x);
+        	
+        	}
+        	else if((channelInfo.broadcastData[0] & 0xFF) == 2)
+        	{		
+        		byte[] capbyte =  channelInfo.broadcastData;
+        		capbyte[0] = 0;
+        		float x = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
+        		displayText = String.format("C[2]:[%3.5f]",x);
+        	}
+        	else if((channelInfo.broadcastData[0] & 0xFF) == 3)
+        	{		
+        		byte[] capbyte =  channelInfo.broadcastData;
+        		capbyte[0] = 0;
+        		float x = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0; 
+        		displayText = String.format("C[3]:[%3.5f]",x);
+        	}
+        	else if((channelInfo.broadcastData[0] & 0xFF) == 8)
+        	{		
+        		displayText = String.format("Rx[8]:[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d],[%2d]", channelInfo.broadcastData[0] & 0xFF,channelInfo.broadcastData[1] & 0xFF,channelInfo.broadcastData[2] & 0xFF,channelInfo.broadcastData[3] & 0xFF,channelInfo.broadcastData[4] & 0xFF,channelInfo.broadcastData[5] & 0xFF,channelInfo.broadcastData[6] & 0xFF,channelInfo.broadcastData[7] & 0xFF);
+        	
+        	}
+        	else
+        	{
+        		displayText = String.format("No data");
+        	}
+        	
         }
         
         Log.v(TAG, "...getDisplayText");
@@ -426,7 +475,7 @@ public class ChannelList extends Activity {
         
         Log.v(TAG, "...clearAllChannels");
     }
-    private void sendMessage()
+    public void getc0()
     {
     	
     	
