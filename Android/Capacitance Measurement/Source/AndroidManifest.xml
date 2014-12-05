@@ -2,6 +2,7 @@
     package="com.dsi.ant.capacitance.measurement"
     android:versionCode="010100"
     android:versionName="01.01.00" >
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="17" />
@@ -26,5 +27,7 @@
         </activity>
         
         <service android:name="com.dsi.ant.capacitance.measurement.ChannelService"></service>
+
+        
     </application>
 </manifest>

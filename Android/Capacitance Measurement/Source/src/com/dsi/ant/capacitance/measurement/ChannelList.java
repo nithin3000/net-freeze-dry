@@ -27,7 +27,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.util.SparseArray;
@@ -41,6 +43,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -52,6 +58,11 @@ public class ChannelList extends Activity {
     private static float data2;
     private static float data3;
     private static Calendar c;
+    private static boolean check1 = false;
+    private static boolean check2 = false;
+    private static boolean check3 = false;
+    static String displayText = null;
+
     private final String PREF_TX_BUTTON_CHECKED_KEY = "ChannelList.TX_BUTTON_CHECKED";
     private boolean mCreateChannelAsMaster;
     
@@ -117,6 +128,52 @@ public class ChannelList extends Activity {
             	c0 = Integer.parseInt(text.getText().toString());
             }
         });
+        
+        
+        Button button_save = (Button)findViewById(R.id.button_save);
+        button_save.setEnabled(mChannelServiceBound);
+        button_save.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {	
+            	 //addNewChannel(mCreateChannelAsMaster);
+            	//writeToFile(displayText);
+            	
+            }
+        });
+        
+        
+        Button button_email = (Button)findViewById(R.id.button_email);
+        button_email.setEnabled(mChannelServiceBound);
+        button_email.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+            	Intent i = new Intent(Intent.ACTION_SEND);
+            	i.setType("text/plain");
+            	i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"j346266119@gmail.com"});
+            	i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+            	i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+            	File root = Environment.getExternalStorageDirectory();
+            	File file = new File( "/sdcard/data.txt");
+            	if (!file.exists() || !file.canRead()) {
+            	    Toast.makeText(ChannelList.this, "Attachment Error", Toast.LENGTH_SHORT).show();
+            	    finish();
+            	    return;
+            	}
+            	Uri uri = Uri.fromFile(file);
+            	i.putExtra(Intent.EXTRA_STREAM, uri);
+            	
+            	try {
+            	    startActivity(Intent.createChooser(i, "Send mail..."));
+            	} catch (android.content.ActivityNotFoundException ex) {
+            	    Toast.makeText(ChannelList.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            	}
+            }
+        });
+        
         
         
         Log.v(TAG, "...initButtons");
@@ -274,6 +331,7 @@ public class ChannelList extends Activity {
                     		byte[] capbyte =  newInfo.broadcastData;
                     		capbyte[0] = 0;
                     	    data1 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
+                    	    check1 = true;
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -290,6 +348,7 @@ public class ChannelList extends Activity {
                     		byte[] capbyte =  newInfo.broadcastData;
                     		capbyte[0] = 0;
                     	    data2 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
+                    	    check2 = true;
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -306,8 +365,7 @@ public class ChannelList extends Activity {
                     		byte[] capbyte =  newInfo.broadcastData;
                     		capbyte[0] = 0;
                     	    data3 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
-                    	    mChannelDisplayList.add(getDisplayText(newInfo));
-
+                    	    check3 = true;
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -318,6 +376,14 @@ public class ChannelList extends Activity {
                             }
                         });
                     }
+                    	if(check1 & check2 & check3){           		
+                    		check1 = false;
+                    		check2 = false;
+                    		check3 = false;
+                    	    mChannelDisplayList.add(getDisplayText(newInfo));
+                    	    //writeToFile(displayText);
+                    	    writedata();
+                    	}
 
                     //}
                 }
@@ -427,8 +493,7 @@ public class ChannelList extends Activity {
     @SuppressLint("DefaultLocale") private static String getDisplayText(ChannelInfo channelInfo)
     {
         Log.v(TAG, "getDisplayText...");
-        String displayText = null;
-        
+                
         if(channelInfo.error)
         {
             displayText = String.format("#%-6d !:%s", channelInfo.deviceNumber, channelInfo.getErrorString());
@@ -506,4 +571,25 @@ public class ChannelList extends Activity {
         Log.v(TAG, "...clearAllChannels");
     }
 
+   private void writedata()
+   {
+	   try {
+           File myFile = new File("/sdcard/data.txt");
+           myFile.createNewFile();
+           FileOutputStream fOut = new FileOutputStream(myFile,true);
+           OutputStreamWriter myOutWriter = 
+                                   new OutputStreamWriter(fOut);
+           myOutWriter.append(String.format(displayText+"\n"));
+           myOutWriter.flush();
+           myOutWriter.close();
+           fOut.close();
+           //Toast.makeText(getBaseContext(),
+            //       "Done writing SD card",
+            //       Toast.LENGTH_SHORT).show();
+       } catch (Exception e) {
+        //   Toast.makeText(getBaseContext(), e.getMessage(),
+         //          Toast.LENGTH_SHORT).show();
+       }   
+   }
+   
 }

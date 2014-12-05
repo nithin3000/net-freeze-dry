@@ -54,7 +54,7 @@ public class ChannelController
     private ChannelInfo mChannelInfo;
     
     private boolean mIsOpen;
-//sss
+
     static public abstract class ChannelBroadcastListener
     {
         public abstract void onBroadcastChanged(ChannelInfo newInfo);
