@@ -35,6 +35,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -44,11 +46,14 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Arrays;
 
 public class ChannelList extends Activity {
     private static final String TAG = ChannelList.class.getSimpleName();
@@ -62,6 +67,12 @@ public class ChannelList extends Activity {
     private static boolean check2 = false;
     private static boolean check3 = false;
     static String displayText = null;
+    private float[] c1_data = new float[100]; 
+    private float[] c2_data = new float[100];
+    private float[] c3_data = new float[100];
+    private int t1 = 0;
+    private int t2 = 0;
+    private int t3 = 0;
 
     private final String PREF_TX_BUTTON_CHECKED_KEY = "ChannelList.TX_BUTTON_CHECKED";
     private boolean mCreateChannelAsMaster;
@@ -94,13 +105,15 @@ public class ChannelList extends Activity {
          final EditText text = (EditText)findViewById(R.id.editText1);
         //Register Add Channel Button handler
         Button button_addChannel = (Button)findViewById(R.id.button_AddChannel);
-        button_addChannel.setEnabled(mChannelServiceBound);
+        button_addChannel.setEnabled(false) 	;//mChannelServiceBound
         button_addChannel.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 addNewChannel(false);
+                Button button_addChannel = (Button)findViewById(R.id.button_AddChannel);
+                button_addChannel.setEnabled(false);
 
             }
         });
@@ -114,6 +127,8 @@ public class ChannelList extends Activity {
             public void onClick(View v)
             {
                 clearAllChannels();
+                Button button_addChannel = (Button)findViewById(R.id.button_AddChannel);
+                button_addChannel.setEnabled(true);
             }
         });
         
@@ -126,11 +141,13 @@ public class ChannelList extends Activity {
             {
             	 //addNewChannel(mCreateChannelAsMaster);
             	c0 = Integer.parseInt(text.getText().toString());
+                Button button_addChannel = (Button)findViewById(R.id.button_AddChannel);
+                button_addChannel.setEnabled(true);
             }
         });
         
         
-        Button button_save = (Button)findViewById(R.id.button_save);
+        Button button_save = (Button)findViewById(R.id.button_clear);
         button_save.setEnabled(mChannelServiceBound);
         button_save.setOnClickListener(new OnClickListener()
         {
@@ -139,6 +156,18 @@ public class ChannelList extends Activity {
             {	
             	 //addNewChannel(mCreateChannelAsMaster);
             	//writeToFile(displayText);
+            	clearAllChannels();
+            	
+            	PrintWriter writer;
+				try {
+					writer = new PrintWriter("/sdcard/data.txt");
+	            	writer.print("");
+	            	writer.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
             	
             }
         });
@@ -262,7 +291,7 @@ public class ChannelList extends Activity {
         if(!mChannelServiceBound) doBindChannelService();
         
         initButtons();
-        
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Log.v(TAG, "...onCreate");
     }
     
@@ -332,6 +361,8 @@ public class ChannelList extends Activity {
                     		capbyte[0] = 0;
                     	    data1 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
                     	    check1 = true;
+                    	    c1_data[t1] = data1;
+                    	    drawc1();
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -349,6 +380,8 @@ public class ChannelList extends Activity {
                     		capbyte[0] = 0;
                     	    data2 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
                     	    check2 = true;
+                    	    c2_data[t2] = data2;
+                    	    drawc2();
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -366,6 +399,8 @@ public class ChannelList extends Activity {
                     		capbyte[0] = 0;
                     	    data3 = (float)java.nio.ByteBuffer.wrap(capbyte).getInt() / 2097152 * c0;
                     	    check3 = true;
+                    	    c3_data[t3] = data3; 
+                    	    drawc3();
                     		runOnUiThread(new Runnable()
                         {
                             @Override
@@ -381,6 +416,9 @@ public class ChannelList extends Activity {
                     		check2 = false;
                     		check3 = false;
                     	    mChannelDisplayList.add(getDisplayText(newInfo));
+                    	    t1++;
+                    	    t2++;
+                    	    t3++;
                     	    //writeToFile(displayText);
                     	    writedata();
                     	}
@@ -591,5 +629,165 @@ public class ChannelList extends Activity {
          //          Toast.LENGTH_SHORT).show();
        }   
    }
+   private void drawc2(){
+
+      /* String url =  "http://chart.apis.google.com/chart?chs=250x500" +
+       		"&chd=t:1.111,1.023,0.90121,1.111,1.0879" +
+       		"&chm=N*5,000000,0,-1,11" +
+       		"&cht=lc&chds=0.9,1.15" +
+       		"&chxt=x,y,r" +
+       		"&chxl=2:|min|average|max&chxp=2,10,35,75";
+       		*/
+	   float min = (c0*2);
+	   float max = 0;
+
+	   String url =  "http://chart.apis.google.com/chart?chs=700x230"+
+			         "&chd=t:"+
+			   	     String.format("%.5f",c2_data[0]);
+	   if(t2 > 20){
+		   
+		   for(int i = 1; i <= t2;i++)
+		   {
+			   c2_data[i-1] = c2_data[i];
+		   }
+		   
+		   t2 = 20;
+
+       }
+	   
+       for(int i=0 ; i<= t2 ;i++)
+       {
+    	   url = url + String.format(",%.5f",c2_data[i]);
+    	   if(c2_data[i] > max)
+    	   {
+    		   max = c2_data[i];   
+    	   }
+    	   if(c2_data[i] < min)
+    	   {
+    	       min = c2_data[i];
+    	   }
+       }
+	   
+       
+       
+       url = url + "&chm=N*5,000000,0,-1,11" +
+    		   		"&cht=lc" +
+    		   		"&chds=" +
+    		   		String.format("%.5f,%.5f",min,max);
+    		   			   	
+  					//"&chxt=x,y,r" +
+  					//"&chxl=2:|min|average|max&chxp=2,10,35,75";  
+       WebView mCharViewc1;
+       mCharViewc1  = (WebView) findViewById(R.id.webc2);   
+       mCharViewc1.loadUrl(url);
+   }
+   private void drawc3(){
+
+	      /* String url =  "http://chart.apis.google.com/chart?chs=250x500" +
+	       		"&chd=t:1.111,1.023,0.90121,1.111,1.0879" +
+	       		"&chm=N*5,000000,0,-1,11" +
+	       		"&cht=lc&chds=0.9,1.15" +
+	       		"&chxt=x,y,r" +
+	       		"&chxl=2:|min|average|max&chxp=2,10,35,75";
+	       		*/
+		   float min = (c0*2);
+		   float max = 0;
+
+		   String url =  "http://chart.apis.google.com/chart?chs=700x230"+
+				         "&chd=t:"+
+				   	     String.format("%.5f",c3_data[0]);
+		   if(t3 > 20){
+			   
+			   for(int i = 1; i <= t3;i++)
+			   {
+				   c3_data[i-1] = c3_data[i];
+			   }
+			   
+			   t3 = 20;
+
+	       }
+		   
+	       for(int i=0 ; i<= t3 ;i++)
+	       {
+	    	   url = url + String.format(",%.5f",c3_data[i]);
+	    	   if(c3_data[i] > max)
+	    	   {
+	    		   max = c3_data[i];   
+	    	   }
+	    	   if(c3_data[i] < min)
+	    	   {
+	    	       min = c3_data[i];
+	    	   }
+	       }
+		   
+	       
+	       
+	       url = url + "&chm=N*5,000000,0,-1,11" +
+	    		   		"&cht=lc" +
+	    		   		"&chds=" +
+	    		   		String.format("%.5f,%.5f",min,max);
+	    		   			   	
+	  					//"&chxt=x,y,r" +
+	  					//"&chxl=2:|min|average|max&chxp=2,10,35,75";  
+	       WebView mCharViewc1;
+	       mCharViewc1  = (WebView) findViewById(R.id.webc3);   
+	       mCharViewc1.loadUrl(url);
+	   }  
+   private void drawc1(){
+
+		      /* String url =  "http://chart.apis.google.com/chart?chs=250x500" +
+		       		"&chd=t:1.111,1.023,0.90121,1.111,1.0879" +
+		       		"&chm=N*5,000000,0,-1,11" +
+		       		"&cht=lc&chds=0.9,1.15" +
+		       		"&chxt=x,y,r" +
+		       		"&chxl=2:|min|average|max&chxp=2,10,35,75";
+		       		*/
+			   float min = (c0*2);
+			   float max = 0;
+
+			   String url =  "http://chart.apis.google.com/chart?chs=700x230"+
+					         "&chd=t:"+
+					   	     String.format("%.5f",c1_data[0]);
+			   if(t1 > 20){
+				   
+				   for(int i = 1; i <= t1;i++)
+				   {
+					   c1_data[i-1] = c1_data[i];
+				   }
+				   
+				   t1 = 20;
+
+		       }
+			   
+		       for(int i=0 ; i<= t1 ;i++)
+		       {
+		    	   url = url + String.format(",%.5f",c1_data[i]);
+		    	   if(c1_data[i] > max)
+		    	   {
+		    		   max = c1_data[i];   
+		    	   }
+		    	   if(c1_data[i] < min)
+		    	   {
+		    	       min = c1_data[i];
+		    	   }
+		       }
+			   
+		       
+		       
+		       url = url + "&chm=N*5,000000,0,-1,11" +
+		    		   		"&cht=lc" +
+		    		   		"&chds=" +
+		    		   		String.format("%.5f,%.5f",min,max);
+		    		   			   	
+		  					//"&chxt=x,y,r" +
+		  					//"&chxl=2:|min|average|max&chxp=2,10,35,75";  
+		       WebView mCharViewc1;
+		       mCharViewc1  = (WebView) findViewById(R.id.webc1);   
+		       mCharViewc1.loadUrl(url);
+		   }
+   
+   
    
 }
+
+
