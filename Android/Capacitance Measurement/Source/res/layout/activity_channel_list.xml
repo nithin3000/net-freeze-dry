@@ -7,17 +7,16 @@
     android:gravity="right"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/button_AddChannel"
@@ -62,13 +61,14 @@
 
     <ListView
         android:id="@+id/listView_channelList"
-        android:layout_width="547dp"
+        android:layout_width="650dp"
         android:layout_height="372dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll" >
+        android:transcriptMode="alwaysScroll"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
     </ListView>
 
     <TextView
@@ -77,55 +77,103 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/linearLayout1"
-        android:text="    Time         status             C(1)            c(2)             c(3)"
-        android:textSize="22sp" />
+        android:text=" DEV#           Time           Status             C(1)            c(2)             c(3)"
+        android:textSize="22sp"
+        android:layout_alignRight="@+id/listView_channelList"
+        android:layout_alignEnd="@+id/listView_channelList" />
 
-    <WebView
-        android:id="@+id/webc1"
-        android:layout_width="700dp"
-        android:layout_height="230dp"
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Device #1 ON"
+        android:textOff="Device #1 OFF"
+        android:id="@+id/toggle_dev1"
+        android:checked="false"
+        android:enabled="false"
+        android:layout_alignTop="@+id/listView_channelList"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentEnd="true" />
 
-    <WebView
-        android:id="@+id/webc2"
-        android:layout_width="700dp"
-        android:layout_height="230dp"
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Device #2 ON"
+        android:textOff="Device #2 OFF"
+        android:id="@+id/toggle_dev2"
+        android:enabled="false"
+        android:layout_below="@+id/toggle_dev1"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
 
-    <WebView
-        android:id="@+id/webc3"
-        android:layout_width="700dp"
-        android:layout_height="230dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
-    <TextView
-        android:id="@+id/TextView02"
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView01"
-        android:layout_alignTop="@+id/webc3"
-        android:text="C3"
-        android:textSize="30dp" />
+        android:textOn="Device #3 ON"
+        android:textOff="Device #3 OFF"
+        android:id="@+id/toggle_dev3"
+        android:enabled="false"
+        android:layout_below="@+id/toggle_dev2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/webc1"
-        android:layout_alignParentTop="true"
-        android:text="C1"
-        android:textSize="30dp" />
+        android:textOn="Device #4 ON"
+        android:textOff="Device #4 OFF"
+        android:id="@+id/toggle_dev4"
+        android:enabled="false"
+        android:layout_below="@+id/toggle_dev3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/TextView01"
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/webc2"
-        android:layout_alignTop="@+id/webc2"
-        android:text="C2"
-        android:textSize="30dp" />
+        android:textOn="Device #5 ON"
+        android:textOff="Device #5 OFF"
+        android:id="@+id/toggle_dev5"
+        android:enabled="false"
+        android:layout_below="@+id/toggle_dev4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ToggleButton"
+        android:id="@+id/toggle_dev6"
+        android:textOn="Device #6 ON"
+        android:enabled="false"
+        android:textOff="Device #6 OFF"
+        android:layout_below="@+id/toggle_dev5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ToggleButton"
+        android:id="@+id/toggle_dev7"
+        android:textOn="Device #7 ON"
+        android:textOff="Device #7 OFF"
+        android:enabled="false"
+        android:layout_below="@+id/toggle_dev6"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ToggleButton"
+        android:id="@+id/toggle_dev8"
+        android:textOn="Device #8 ON"
+        android:enabled="false"
+        android:textOff="Device #8 OFF"
+        android:layout_below="@+id/toggle_dev7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

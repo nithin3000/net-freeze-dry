@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/abc"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="right"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/editText_devn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/button_AddChannel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:text="Open" />
+
+        <Button
+            android:id="@+id/button_ClearChannels"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:text="Clear" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" >
+        </EditText>
+
+        <Button
+            android:id="@+id/button_getc0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set C0" />
+
+        <Button
+            android:id="@+id/button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Data" />
+
+        <Button
+            android:id="@+id/button_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView_channelList"
+        android:layout_width="547dp"
+        android:layout_height="372dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:text="    Time         status             C(1)            c(2)             c(3)"
+        android:textSize="22sp" />
+
+    <WebView
+        android:id="@+id/webc1"
+        android:layout_width="700dp"
+        android:layout_height="230dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <WebView
+        android:id="@+id/webc2"
+        android:layout_width="700dp"
+        android:layout_height="230dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+    <WebView
+        android:id="@+id/webc3"
+        android:layout_width="700dp"
+        android:layout_height="230dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_alignTop="@+id/webc3"
+        android:text="C3"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/webc1"
+        android:layout_alignParentTop="true"
+        android:text="C1"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/webc2"
+        android:layout_alignTop="@+id/webc2"
+        android:text="C2"
+        android:textSize="30dp" />
+
+</RelativeLayout>

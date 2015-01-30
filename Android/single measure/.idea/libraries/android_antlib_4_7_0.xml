@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="android_antlib_4-7-0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Source/libs/android_antlib_4-7-0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
